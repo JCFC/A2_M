@@ -13,13 +13,4 @@ import template from './app.component.html';
 })
 
 export class AppComponent {
-	parties: Observable<Party[]>;
- 
-	constructor() {
-		this.parties = Parties.find({}).zone(); //zone?
-	}
-
-	removeParty(party: Party): void {
-		Parties.remove(party._id);
-	}
 }
