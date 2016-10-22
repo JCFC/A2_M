@@ -24,13 +24,24 @@ export class PartyDetailsComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-		this.route.params
+		this.paramsSub = this.route.params
 			.map(params => params['partyId'])
 			.subscribe(partyId => {
 				this.partyId = partyId
 
 				this.party = Parties.findOne(this.partyId);
 			});
+	}
+
+
+	saveParty() {
+		Parties.update(this.party._id, {
+			$set: {
+				name: this.party.name,
+				description: this.party.description,
+				location: this.party.location
+			}
+		});
 	}
 
 	ngOnDestroy() {
