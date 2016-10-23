@@ -29,12 +29,17 @@ export class PartyDetailsComponent implements OnInit, OnDestroy {
 			.subscribe(partyId => {
 				this.partyId = partyId
 
+				console.log(this.partyId);
 				this.party = Parties.findOne(this.partyId);
 			});
 	}
 
 
 	saveParty() {
+		if (!Meteor.userId()) {
+			alert('Please log in to change this party');
+			return;
+		}
 		Parties.update(this.party._id, {
 			$set: {
 				name: this.party.name,
